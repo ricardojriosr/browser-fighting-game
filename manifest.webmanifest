@@ -1,0 +1,22 @@
+{
+  "name": "Neon Clash Arena",
+  "short_name": "Neon Clash",
+  "description": "Juego de combate 2D original para navegador y móvil.",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#070b19",
+  "theme_color": "#10152c",
+  "icons": [
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

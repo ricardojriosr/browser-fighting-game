@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Diagnóstico · Neon Clash Arena</title>
+  <style>
+    :root{color-scheme:dark;font-family:system-ui,sans-serif}
+    body{margin:0;padding:32px;background:#070b19;color:#f6f8ff}
+    main{max-width:760px;margin:auto}
+    p{color:#b7c0df;line-height:1.55}
+    .item{display:flex;justify-content:space-between;gap:20px;padding:14px 16px;margin:10px 0;border:1px solid #ffffff24;border-radius:12px;background:#10162e}
+    .ok{color:#42e8e0;font-weight:800}.bad{color:#ff668f;font-weight:800}
+    a{color:#42e8e0}
+  </style>
+</head>
+<body>
+<main>
+  <h1>Diagnóstico del juego</h1>
+  <p>Verifica que el proyecto esté cargando correctamente desde tu localhost o servidor.</p>
+  <div id="results"></div>
+  <p><a href="./">Abrir el juego</a></p>
+</main>
+<script>
+(async () => {
+  const tests = [
+    ["HTTP o HTTPS", ["http:","https:"].includes(location.protocol), location.protocol],
+    ["Canvas 2D", !!document.createElement("canvas").getContext("2d"), "Gráficos"],
+    ["Pointer Events", "PointerEvent" in window, "Controles táctiles"],
+    ["Web Audio", !!(window.AudioContext || window.webkitAudioContext), "Sonido"],
+    ["Service Worker", "serviceWorker" in navigator, "PWA y offline"]
+  ];
+  for (const file of ["index.html","styles.css","js/game.js","manifest.webmanifest"]) {
+    try {
+      const r = await fetch(file, {cache:"no-store"});
+      tests.push([file, r.ok, `HTTP ${r.status}`]);
+    } catch (e) {
+      tests.push([file, false, e.message]);
+    }
+  }
+  document.getElementById("results").innerHTML = tests.map(([name,ok,detail]) =>
+    `<div class="item"><span><strong>${name}</strong><br><small>${detail}</small></span><span class="${ok?"ok":"bad"}">${ok?"CORRECTO":"REVISAR"}</span></div>`
+  ).join("");
+})();
+</script>
+</body>
+</html>

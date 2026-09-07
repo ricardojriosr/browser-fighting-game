@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#10152c">
+  <meta name="description" content="Neon Clash Arena: juego de combate 2D original para navegador y móvil.">
+  <title>Neon Clash Arena</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main id="app">
+    <canvas id="game" width="960" height="540" aria-label="Neon Clash Arena"></canvas>
+
+    <section id="menu" class="overlay">
+      <div class="panel">
+        <p class="eyebrow">ORIGINAL BROWSER FIGHTER</p>
+        <h1>NEON CLASH<br><span>ARENA</span></h1>
+        <p class="tagline">Combate rápido, personajes originales y controles para desktop o móvil.</p>
+        <div class="menu-actions">
+          <button data-mode="cpu" class="primary">Jugar vs CPU</button>
+          <button data-mode="pvp">2 jugadores local</button>
+        </div>
+        <button id="howToPlay" class="text-button">Ver controles</button>
+      </div>
+    </section>
+
+    <section id="help" class="overlay hidden">
+      <div class="panel compact">
+        <h2>Controles</h2>
+        <div class="controls-grid">
+          <article>
+            <h3>Jugador 1</h3>
+            <p><kbd>A</kbd>/<kbd>D</kbd> mover · <kbd>W</kbd> saltar · <kbd>S</kbd> bloquear</p>
+            <p><kbd>F</kbd> golpe · <kbd>G</kbd> fuerte · <kbd>H</kbd> especial</p>
+          </article>
+          <article>
+            <h3>Jugador 2</h3>
+            <p><kbd>←</kbd>/<kbd>→</kbd> mover · <kbd>↑</kbd> saltar · <kbd>↓</kbd> bloquear</p>
+            <p><kbd>J</kbd> golpe · <kbd>K</kbd> fuerte · <kbd>L</kbd> especial</p>
+          </article>
+        </div>
+        <p>En móvil, usa los botones táctiles. El ataque especial consume 40 puntos de energía.</p>
+        <button id="closeHelp" class="primary">Entendido</button>
+      </div>
+    </section>
+
+    <section id="roundPanel" class="overlay hidden">
+      <div class="panel compact center">
+        <p id="roundMessage" class="round-message">¡ROUND 1!</p>
+        <button id="continueRound" class="primary">Continuar</button>
+      </div>
+    </section>
+
+    <button id="pauseButton" class="pause-button" aria-label="Pausar">Ⅱ</button>
+
+    <div id="touchControls" class="touch-controls" aria-label="Controles táctiles">
+      <div class="touch-left">
+        <button data-input="left" aria-label="Izquierda">◀</button>
+        <button data-input="right" aria-label="Derecha">▶</button>
+        <button data-input="jump" aria-label="Saltar">▲</button>
+        <button data-input="block" aria-label="Bloquear">◆</button>
+      </div>
+      <div class="touch-right">
+        <button data-input="light" class="attack light" aria-label="Golpe ligero">L</button>
+        <button data-input="heavy" class="attack heavy" aria-label="Golpe fuerte">H</button>
+        <button data-input="special" class="attack special" aria-label="Ataque especial">S</button>
+      </div>
+    </div>
+
+    <div id="rotateHint" class="rotate-hint">
+      <div>↻</div>
+      <strong>Gira el teléfono</strong>
+      <span>El juego funciona mejor en horizontal.</span>
+    </div>
+  </main>
+
+  <script src="js/game.js"></script>
+</body>
+</html>

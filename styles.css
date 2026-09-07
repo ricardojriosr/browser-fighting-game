@@ -1,0 +1,275 @@
+:root {
+  --bg: #070b19;
+  --panel: rgba(10, 16, 39, .92);
+  --line: rgba(255,255,255,.14);
+  --text: #f6f8ff;
+  --muted: #b7c0df;
+  --cyan: #42e8e0;
+  --pink: #ff4f9a;
+  --yellow: #ffda57;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  touch-action: none;
+  overscroll-behavior: none;
+}
+
+button { font: inherit; }
+
+#app {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(66,232,224,.12), transparent 28%),
+    radial-gradient(circle at 80% 25%, rgba(255,79,154,.12), transparent 30%),
+    #070b19;
+}
+
+canvas {
+  display: block;
+  width: min(100vw, calc(100vh * 16 / 9));
+  height: min(100vh, calc(100vw * 9 / 16));
+  max-width: 100%;
+  max-height: 100%;
+  image-rendering: auto;
+  background: #10152c;
+  box-shadow: 0 0 50px rgba(0,0,0,.45);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(3,6,17,.52);
+  backdrop-filter: blur(8px);
+}
+
+.hidden { display: none !important; }
+
+.panel {
+  width: min(520px, 92vw);
+  padding: 36px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background:
+    linear-gradient(135deg, rgba(66,232,224,.08), transparent 36%),
+    linear-gradient(315deg, rgba(255,79,154,.08), transparent 36%),
+    var(--panel);
+  box-shadow: 0 28px 80px rgba(0,0,0,.52);
+}
+
+.panel.compact { width: min(650px, 94vw); }
+.panel.center { text-align: center; }
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--cyan);
+  font-size: .76rem;
+  font-weight: 900;
+  letter-spacing: .22em;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(3rem, 8vw, 5.8rem);
+  line-height: .82;
+  letter-spacing: -.07em;
+  font-style: italic;
+  text-shadow: 0 6px 0 rgba(0,0,0,.25);
+}
+
+h1 span { color: var(--pink); }
+h2 { margin: 0 0 22px; font-size: 2rem; }
+h3 { margin: 0 0 10px; color: var(--cyan); }
+
+.tagline {
+  margin: 24px 0;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.menu-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+button {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 13px 16px;
+  color: var(--text);
+  background: rgba(255,255,255,.06);
+  cursor: pointer;
+  transition: transform .15s ease, background .15s ease, border-color .15s ease;
+}
+
+button:hover { transform: translateY(-2px); border-color: rgba(255,255,255,.35); }
+button:active { transform: translateY(1px) scale(.98); }
+
+button.primary {
+  color: #051014;
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--cyan), #8dfff7);
+  font-weight: 900;
+}
+
+.text-button {
+  width: 100%;
+  margin-top: 12px;
+  border: 0;
+  color: var(--muted);
+  background: transparent;
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.controls-grid article {
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255,255,255,.035);
+}
+
+.controls-grid p { margin: 8px 0; color: var(--muted); line-height: 1.55; }
+
+kbd {
+  display: inline-block;
+  min-width: 26px;
+  padding: 3px 7px;
+  text-align: center;
+  color: #fff;
+  background: #222c50;
+  border: 1px solid rgba(255,255,255,.2);
+  border-bottom-width: 3px;
+  border-radius: 6px;
+}
+
+.round-message {
+  margin: 0 0 22px;
+  font-size: clamp(2.2rem, 7vw, 5rem);
+  font-weight: 1000;
+  font-style: italic;
+  letter-spacing: -.06em;
+}
+
+.pause-button {
+  position: absolute;
+  top: max(12px, env(safe-area-inset-top));
+  right: max(12px, env(safe-area-inset-right));
+  z-index: 12;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 50%;
+  background: rgba(5,9,25,.6);
+  backdrop-filter: blur(6px);
+}
+
+.touch-controls {
+  position: absolute;
+  inset: auto 0 max(8px, env(safe-area-inset-bottom));
+  z-index: 10;
+  display: none;
+  justify-content: space-between;
+  align-items: end;
+  padding: 0 max(12px, env(safe-area-inset-right)) 0 max(12px, env(safe-area-inset-left));
+  pointer-events: none;
+}
+
+.touch-left,
+.touch-right {
+  display: grid;
+  grid-template-columns: repeat(3, 58px);
+  gap: 8px;
+  pointer-events: auto;
+}
+
+.touch-left button:nth-child(4) { grid-column: 2; }
+.touch-right { grid-template-columns: repeat(2, 62px); }
+.touch-right .special { grid-column: 2; }
+
+.touch-controls button {
+  width: 58px;
+  height: 58px;
+  padding: 0;
+  border-radius: 50%;
+  font-weight: 1000;
+  background: rgba(8,13,34,.62);
+  backdrop-filter: blur(7px);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.touch-controls .attack { width: 62px; height: 62px; }
+.touch-controls .light { border-color: rgba(66,232,224,.65); }
+.touch-controls .heavy { border-color: rgba(255,218,87,.7); }
+.touch-controls .special { border-color: rgba(255,79,154,.75); }
+
+.touch-controls button.active {
+  transform: scale(.9);
+  background: rgba(255,255,255,.22);
+}
+
+.rotate-hint {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: none;
+  place-items: center;
+  align-content: center;
+  gap: 8px;
+  text-align: center;
+  background: #070b19;
+}
+
+.rotate-hint div { font-size: 4rem; }
+.rotate-hint span { color: var(--muted); }
+
+@media (pointer: coarse), (max-width: 900px) {
+  .touch-controls { display: flex; }
+  .pause-button { width: 38px; height: 38px; }
+}
+
+@media (orientation: portrait) and (pointer: coarse) {
+  .rotate-hint { display: grid; }
+}
+
+@media (max-height: 460px) {
+  .touch-left,
+  .touch-right { grid-template-columns: repeat(3, 48px); gap: 6px; }
+  .touch-left button:nth-child(4) { grid-column: auto; }
+  .touch-right { grid-template-columns: repeat(3, 52px); }
+  .touch-right .special { grid-column: auto; }
+
+  .touch-controls button { width: 48px; height: 48px; font-size: .8rem; }
+  .touch-controls .attack { width: 52px; height: 52px; }
+
+  .panel { padding: 22px; }
+  .panel h1 { font-size: 3.5rem; }
+  .tagline { margin: 14px 0; }
+}
+
+@media (max-width: 620px) {
+  .menu-actions,
+  .controls-grid { grid-template-columns: 1fr; }
+}
